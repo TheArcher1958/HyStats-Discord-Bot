@@ -1,7 +1,23 @@
 fs = require('fs')
-var http = require('https');
+var https = require('https');
+var http = require('http');
 const Discord = require('discord.js');
 const client = new Discord.Client();
+
+
+fs.readFile('./API-Key.txt', 'utf8', function (err,data) {
+    if (err) {
+        return console.log(err);
+    }
+    API_KEY = data;
+});
+fs.readFile('./hostname.txt', 'utf8', function (err,data) {
+    if (err) {
+        return console.log(err);
+    }
+    HOSTNAME = data;
+});
+
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -11,7 +27,6 @@ client.on('message', msg => {
     if(msg.content[0] == commandPrefix) {
         var messageArguments = msg.content.slice(commandPrefix.length).trim().split(" ");
         if (messageArguments[0] === 'query' && messageArguments[1] != undefined) {
-            console.log("found request")
             var options = {
                 host: 'api.mcsrvstat.us',
                 path: `/2/${messageArguments[1]}`,
@@ -26,7 +41,6 @@ client.on('message', msg => {
                 });
 
                 response.on('end', function () {
-                    console.log(str);
                     const serverObj = JSON.parse(str);
                     let responseEmbed;
                     if (serverObj.online === true) {
@@ -56,6 +70,33 @@ client.on('message', msg => {
                     msg.channel.send(responseEmbed);
                 });
             }
+
+            http.request(options, callback).end();
+
+        } else if (messageArguments[0] === "stats") {
+            const options = {
+                hostname: HOSTNAME,
+                path: '/player/minifreddusch',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'API-Key': API_KEY
+                }
+            }
+
+            callback = function(response) {
+                var str = '';
+
+                response.on('data', function (chunk) {
+                    str += chunk;
+                });
+
+                response.on('end', function () {
+                    console.log(str)
+                    const serverObj = JSON.parse(str);
+                });
+            }
+
 
             http.request(options, callback).end();
         }
