@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/discord-bot-competition.iml" filepath="$PROJECT_DIR$/.idea/discord-bot-competition.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hystats-discord-bot.iml" filepath="$PROJECT_DIR$/.idea/hystats-discord-bot.iml" />
     </modules>
   </component>
 </project>
