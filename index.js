@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general"]
 
+
 fs.readFile('./API-Key.txt', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
@@ -24,6 +25,11 @@ var GamemodeStats = function (kd, wl, wins, kills) {
     this._wl = wl;
     this._wins = wins;
     this._kills = kills;
+};
+
+var GamemodeStatsMM = function (kd, wl) {
+    this._kd = kd;
+    this._wl = wl;
 };
 
 
@@ -61,7 +67,7 @@ client.on('message', msg => {
                     let responseEmbed;
                     if (serverObj.online === true) {
                         responseEmbed = new Discord.MessageEmbed()
-                            .setColor('#890df3')
+                            .setColor('#3e8ef7')
                             .setTitle(`Server Status: ${messageArguments[1]}`)
                             .setDescription(`${serverObj.motd.clean[0] != undefined ? serverObj.motd.clean[0] : ""}\n${serverObj.motd.clean[1] != undefined ? serverObj.motd.clean[1] : ""}`)
                             .setThumbnail(`https://api.mcsrvstat.us/icon/${messageArguments[1]}`)
@@ -78,7 +84,7 @@ client.on('message', msg => {
                             .setFooter(client.user.username, client.user.displayAvatarURL());
                     } else {
                         responseEmbed = new Discord.MessageEmbed()
-                            .setColor('#890df3')
+                            .setColor('#3e8ef7')
                             .setTitle(`Server Status: ${messageArguments[1]}`)
                             .setDescription(`The server is offline!`)
                             .setThumbnail(`https://api.mcsrvstat.us/icon/${messageArguments[1]}`)
@@ -116,8 +122,10 @@ client.on('message', msg => {
                 });
             }
 
-
             http.request(options, callback).end();
+
+
+
         } else if (statGamemodes.includes(messageArguments[0])) {
             msg.channel.startTyping();
             let playerName = msg.author.username;
@@ -140,26 +148,63 @@ client.on('message', msg => {
                 if (res.statusCode == 200) {
                     res.on('data', d => {
                         const statsObj = JSON.parse(d);
-                        //process.stdout.write(d)
-                        objVals = Object.values(statsObj.stats);
-                        var currentStats = new GamemodeStats(objVals[0], objVals[1], objVals[2], objVals[3]);
-                        console.log(currentStats._kd);
+                        process.stdout.write(d)
+                        objVals = Object.values(statsObj.stats)
+                        let gamemodeEmbed;
+                        if(messageArguments[0] === "pit" || messageArguments[0] === "paintball") {
+                            var currentStats = new GamemodeStats(objVals[0]);
+                            //console.log(currentStats);
 
-                        gamemodeEmbed = new Discord.MessageEmbed()
-                            .setColor('#3e8ef7')
-                            .setTitle(`Hypixel Stats`)
-                            .setDescription(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
-                            .addFields(
-                                {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
-                                {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
-                                { name: '\u200B', value: '\u200B' },
-                                {name: 'Wins', value: `Daily: \`${currentStats._wins[0].daily}\`\nWeekly: \`${currentStats._wins[1].weekly}\`\nMonthly: \`${currentStats._wins[2].monthly}\`\nOverall: \`${currentStats._wins[3].overall}\``, inline: true},
-                                {name: 'Kills', value: `Daily: \`${currentStats._kills[0].daily}\`\nWeekly: \`${currentStats._kills[1].weekly}\`\nMonthly: \`${currentStats._kills[2].monthly}\`\nOverall: \`${currentStats._kills[3].overall}\``, inline: true},
-                            )
+                            gamemodeEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                //.setDescription(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                .addFields(
+                                    {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                                )
 
-                            .setThumbnail(`https://minotar.net/helm/${playerName}`)
-                            .setTimestamp()
-                            .setFooter(client.user.username, client.user.avatarURL());
+                                .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                                .setTimestamp()
+                                .setFooter(client.user.username, client.user.avatarURL());
+
+                        } else if(["murdermystery", "speeduhc", "duels"].includes(messageArguments[0])) {
+                            var currentStats = new GamemodeStatsMM(objVals[0], objVals[1]);
+
+                            gamemodeEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${messageArguments[0] === "murdermystery" ? "Murder Mystery" : capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                //.setDescription(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                .addFields(
+                                    {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                                    {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
+                                )
+
+                                .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                                .setTimestamp()
+                                .setFooter(client.user.username, client.user.avatarURL());
+                        }
+
+
+
+
+                        // var currentStats = new GamemodeStats(objVals[0], objVals[1], objVals[2], objVals[3]);
+                        // //console.log(currentStats);
+                        //
+                        // gamemodeEmbed = new Discord.MessageEmbed()
+                        //     .setColor('#3e8ef7')
+                        //     .setTitle(`Hypixel Stats`)
+                        //     .setDescription(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
+                        //     .addFields(
+                        //         {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                        //         {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
+                        //         { name: '\u200B', value: '\u200B' },
+                        //         {name: 'Wins', value: `Daily: \`${currentStats._wins[0].daily}\`\nWeekly: \`${currentStats._wins[1].weekly}\`\nMonthly: \`${currentStats._wins[2].monthly}\`\nOverall: \`${currentStats._wins[3].overall}\``, inline: true},
+                        //         {name: 'Kills', value: `Daily: \`${currentStats._kills[0].daily}\`\nWeekly: \`${currentStats._kills[1].weekly}\`\nMonthly: \`${currentStats._kills[2].monthly}\`\nOverall: \`${currentStats._kills[3].overall}\``, inline: true},
+                        //     )
+                        //
+                        //     .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                        //     .setTimestamp()
+                        //     .setFooter(client.user.username, client.user.avatarURL());
 
                         msg.channel.send(gamemodeEmbed).then(() => msg.channel.stopTyping());
                     });
