@@ -11,7 +11,7 @@ fs.readFile('./API-Key.txt', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
     }
-    API_KEY.trim() = data;
+    API_KEY = data.trim();
 });
 
 
