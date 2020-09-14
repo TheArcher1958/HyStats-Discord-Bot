@@ -4,6 +4,7 @@ var http = require('http');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general"]
+const aliases = ["sw", "bw", "uhc"," su","pit","pb","mm","mw","duels","blitz","general"]
 
 
 fs.readFile('./API-Key.txt', 'utf8', function (err,data) {
@@ -99,45 +100,22 @@ client.on('message', msg => {
 
             https.request(options, callback).end();
 
-        } else if (messageArguments[0] === "stats") {
-            const options = {
-                hostname: HOSTNAME,
-                path: '/player/minifreddusch',
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'API-Key': API_KEY
-                }
-            }
-
-            callback = function (response) {
-                var str = '';
-
-                response.on('data', function (chunk) {
-                    str += chunk;
-                });
-
-                response.on('end', function () {
-                    console.log(str)
-                    const statsObj = JSON.parse(str);
-                });
-            }
-
-            http.request(options, callback).end();
 
 
-
-        } else if (statGamemodes.includes(messageArguments[0].toLowerCase())) {
+        } else if (statGamemodes.includes(messageArguments[0].toLowerCase()) || aliases.includes(messageArguments[0].toLowerCase())) {
             msg.channel.startTyping();
             let playerName = msg.author.username;
             if (messageArguments[1] != undefined) {
                 playerName = messageArguments[1];
             }
-
+            let gamePath = messageArguments[0].toLowerCase();
+            if(aliases.includes(messageArguments[0].toLowerCase())) {
+                gamePath = statGamemodes[aliases.indexOf(messageArguments[0].toLowerCase())]
+            }
             let gamemodeEmbed;
             const options = {
                 hostname: HOSTNAME,
-                path: `/player/${messageArguments[0].toLowerCase()}/${playerName}`,
+                path: `/player/${gamePath}/${playerName}`,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,44 +130,58 @@ client.on('message', msg => {
                         process.stdout.write(d)
                         objVals = Object.values(statsObj.stats)
                         let gamemodeEmbed;
-                        if(["pit", "paintball"].includes(messageArguments[0].toLowerCase())) {
+                        if(["pit", "paintball","pb"].includes(gamePath)) {
                             var currentStats = new GamemodeStats(objVals[0]);
 
                             gamemodeEmbed = new Discord.MessageEmbed()
                                 .setColor('#3e8ef7')
-                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(gamePath.toLowerCase())} Stats`)
                                 .addFields(
-                                    {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                                    {name: "K/D", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
                                 )
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
 
-                        } else if(["murdermystery", "speeduhc", "duels"].includes(messageArguments[0].toLowerCase())) {
-                            var currentStats = new GamemodeStatsMM(objVals[0], objVals[1]);
+                        } else if(["murdermystery", "speeduhc", "duels","mm","su"].includes(gamePath)) {
+                            var currentStats = new GamemodeStats(objVals[0], objVals[1]);
 
                             gamemodeEmbed = new Discord.MessageEmbed()
                                 .setColor('#3e8ef7')
-                                .setTitle(`${capitalizeFirstLetter(playerName)} ${messageArguments[0].toLowerCase() === "murdermystery" ? "Murder Mystery" : capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${gamePath.toLowerCase() === "murdermystery" ? "Murder Mystery" : capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
                                 .addFields(
-                                    {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
-                                    {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
+                                    {name: "K/D", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                                    {name: 'W/L', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
                                 )
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
-                        } else if(["skywars", "bedwars"].includes(messageArguments[0].toLowerCase())) {
+                        } else if(["skywars", "bedwars","sw","bw"].includes(gamePath)) {
                             var currentStats = new GamemodeStats(objVals[0], objVals[1], objVals[2], objVals[3]);
 
                             gamemodeEmbed = new Discord.MessageEmbed()
                                 .setColor('#3e8ef7')
-                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(gamePath)} Stats`)
                                 .addFields(
-                                    {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
-                                    {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
+                                    {name: "K/D", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                                    {name: 'W/L', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
                                     { name: '\u200B', value: '\u200B' },
                                     {name: 'Wins', value: `Daily: \`${currentStats._wins[0].daily}\`\nWeekly: \`${currentStats._wins[1].weekly}\`\nMonthly: \`${currentStats._wins[2].monthly}\`\nOverall: \`${currentStats._wins[3].overall}\``, inline: true},
                                     {name: 'Kills', value: `Daily: \`${currentStats._kills[0].daily}\`\nWeekly: \`${currentStats._kills[1].weekly}\`\nMonthly: \`${currentStats._kills[2].monthly}\`\nOverall: \`${currentStats._kills[3].overall}\``, inline: true},
+                                )
+
+                                .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                                .setTimestamp()
+                                .setFooter(client.user.username, client.user.avatarURL());
+                        } else if(["megawalls","mw"].includes(gamePath)) {
+                            var currentStats = new GamemodeStats(objVals[0], objVals[1]);
+
+                            gamemodeEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(gamePath)} Stats`)
+                                .addFields(
+                                    {name: "FK/D", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
+                                    {name: 'W/L', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
                                 )
 
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
