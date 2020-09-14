@@ -11,14 +11,9 @@ fs.readFile('./API-Key.txt', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
     }
-    API_KEY = data;
+    API_KEY.trim() = data;
 });
-fs.readFile('./hostname.txt', 'utf8', function (err,data) {
-    if (err) {
-        return console.log(err);
-    }
-    HOSTNAME = data;
-});
+
 
 
 var GamemodeStats = function (kd, wl, wins, kills, xp, losses, deaths) {
@@ -114,7 +109,7 @@ client.on('message', msg => {
             }
             let gamemodeEmbed;
             const options = {
-                hostname: HOSTNAME,
+                hostname: "localhost",
                 path: `/player/${gamePath}/${playerName}`,
                 method: 'GET',
                 headers: {
@@ -332,7 +327,7 @@ fs.readFile('./token.txt', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
     }
-    client.login(data);
+    client.login(data.trim());
 });
 
 
