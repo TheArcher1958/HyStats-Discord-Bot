@@ -34,6 +34,7 @@ var GamemodeStatsMM = function (kd, wl) {
 
 
 function capitalizeFirstLetter(string) {
+
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -136,7 +137,7 @@ client.on('message', msg => {
             let gamemodeEmbed;
             const options = {
                 hostname: HOSTNAME,
-                path: `/player/${messageArguments[0]}/${playerName}`,
+                path: `/player/${messageArguments[0].toLowerCase()}/${playerName}`,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -156,7 +157,7 @@ client.on('message', msg => {
 
                             gamemodeEmbed = new Discord.MessageEmbed()
                                 .setColor('#3e8ef7')
-                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
                                 .addFields(
                                     {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
                                 )
@@ -169,7 +170,7 @@ client.on('message', msg => {
 
                             gamemodeEmbed = new Discord.MessageEmbed()
                                 .setColor('#3e8ef7')
-                                .setTitle(`${capitalizeFirstLetter(playerName)} ${messageArguments[0] === "murdermystery" ? "Murder Mystery" : capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${messageArguments[0].toLowerCase() === "murdermystery" ? "Murder Mystery" : capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
                                 .addFields(
                                     {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
                                     {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
@@ -182,8 +183,7 @@ client.on('message', msg => {
 
                             gamemodeEmbed = new Discord.MessageEmbed()
                                 .setColor('#3e8ef7')
-                                .setTitle(`Hypixel Stats`)
-                                .setDescription(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0])} Stats`)
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(messageArguments[0].toLowerCase())} Stats`)
                                 .addFields(
                                     {name: "KD", value: `Daily: \`${currentStats._kd[0].daily}\`\nWeekly: \`${currentStats._kd[1].weekly}\`\nMonthly: \`${currentStats._kd[2].monthly}\`\nOverall: \`${currentStats._kd[3].overall}\``, inline: true},
                                     {name: 'WL', value: `Daily: \`${currentStats._wl[0].daily}\`\nWeekly: \`${currentStats._wl[1].weekly}\`\nMonthly: \`${currentStats._wl[2].monthly}\`\nOverall: \`${currentStats._wl[3].overall}\``, inline: true},
