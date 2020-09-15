@@ -7,8 +7,8 @@ Commands:
 
 - [gamemode] [username]
 Returns stats for that gamemode.
-(sw,bw,mm,blitz,duels,mw,pb,pit,su,uhc,general)
-e.g. >sw The_Archer
+(sw,bw,mm,blitz,duels,mw,pb,pit,su,uhc,general).
+e.g. >sw The_Archer.
 Leaving your username blank will use your discord username.
 
 - query [ip]
