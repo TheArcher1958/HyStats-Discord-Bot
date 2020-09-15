@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bf16228-80fc-44f8-8275-18cf2783cd1d" name="Default Changelist" comment="Fixed my trim">
+    <list default="true" id="9bf16228-80fc-44f8-8275-18cf2783cd1d" name="Default Changelist" comment="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
@@ -81,7 +81,7 @@
       <workItem from="1599772581153" duration="535000" />
       <workItem from="1599773420752" duration="3096000" />
       <workItem from="1599947734463" duration="25393000" />
-      <workItem from="1600188939165" duration="2389000" />
+      <workItem from="1600188939165" duration="3391000" />
     </task>
     <task id="LOCAL-00001" summary="Created the &gt;query command. Returns the server info from https://api.mcsrvstat.us.">
       <created>1599778944939</created>
@@ -153,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600119312343</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped.">
+      <created>1600193696813</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1600193696813</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +189,8 @@
     <MESSAGE value="Bug fixes" />
     <MESSAGE value="Added trim for the vps and localhost for faster connections." />
     <MESSAGE value="Fixed my trim" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed my trim" />
+    <MESSAGE value="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600190398598">
@@ -209,9 +217,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599772782325" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600119316104">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600193701431">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600119316104" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600193701431" />
   </component>
 </project>

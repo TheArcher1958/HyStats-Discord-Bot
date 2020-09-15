@@ -44,7 +44,7 @@ const commandPrefix = ">"
 client.on('message', msg => {
 
     if (msg.content[0] == commandPrefix) {
-        var messageArguments = msg.content.slice(commandPrefix.length).trim().split(" ");
+        var messageArguments = msg.content.slice(commandPrefix.length).trimEnd().split(" ");
         if (messageArguments[0].toLowerCase() === 'query' && messageArguments[1] != undefined) {
             msg.channel.startTyping();
             var options = {
