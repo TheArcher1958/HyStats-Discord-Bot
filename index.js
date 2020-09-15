@@ -336,7 +336,7 @@ client.on('message', msg => {
                 )
                 .setTimestamp()
                 .setFooter(client.user.username, client.user.avatarURL());
-            msg.author.send(helpEmbed);
+            msg.channel.send(helpEmbed);
         }
     }
 
