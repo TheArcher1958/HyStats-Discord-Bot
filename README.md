@@ -18,3 +18,6 @@ e.g. >query hypixel.net
 
 - help
 Just tells you about the two commands listed above.
+
+
+Invite link: https://discord.com/api/oauth2/authorize?client_id=753337903081455776&permissions=2048&scope=bot
