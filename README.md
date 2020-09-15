@@ -3,7 +3,6 @@ This bot displays a history of stats which allows you to see your progression th
 Displays daily, weekly, monthly, and overall stats.
 
 Prefix: >
-
 Commands:
 
 - [gamemode] [username]
