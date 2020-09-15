@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bf16228-80fc-44f8-8275-18cf2783cd1d" name="Default Changelist" comment="Created the &gt;query command. Returns the server info from https://api.mcsrvstat.us.">
+    <list default="true" id="9bf16228-80fc-44f8-8275-18cf2783cd1d" name="Default Changelist" comment="Fixed my trim">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
@@ -80,7 +80,8 @@
       <workItem from="1599765769160" duration="5656000" />
       <workItem from="1599772581153" duration="535000" />
       <workItem from="1599773420752" duration="3096000" />
-      <workItem from="1599947734463" duration="1819000" />
+      <workItem from="1599947734463" duration="25393000" />
+      <workItem from="1600188939165" duration="2389000" />
     </task>
     <task id="LOCAL-00001" summary="Created the &gt;query command. Returns the server info from https://api.mcsrvstat.us.">
       <created>1599778944939</created>
@@ -89,7 +90,70 @@
       <option name="project" value="LOCAL" />
       <updated>1599778944939</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Created &gt;stats command. No arguments yet, but successfully gets json from HyStats.">
+      <created>1599949832631</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599949832631</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Created all of the gamemode sub commands. Not all of them are working, but we are gettiing back stats.&#10;Also added the typing indicator.">
+      <created>1600024170257</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600024170257</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Murder Mystery, Speeduhc, duels, pit, and paintball are working.">
+      <created>1600103833309</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1600103833309</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Skywars and Bedwars modes are working.">
+      <created>1600104159057</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1600104159057</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixed gamemode titles to only have first character capitalized, but to accept any case when requesting the stats.">
+      <created>1600104730690</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1600104730690</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added alias commands to modes, added megawalls as a mode.">
+      <created>1600110898708</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1600110898708</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Bug fixes">
+      <created>1600116262430</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1600116262430</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added trim for the vps and localhost for faster connections.">
+      <created>1600119187480</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1600119187480</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fixed my trim">
+      <created>1600119312343</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1600119312343</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,32 +173,45 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created the &gt;query command. Returns the server info from https://api.mcsrvstat.us." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created the &gt;query command. Returns the server info from https://api.mcsrvstat.us." />
+    <MESSAGE value="Created &gt;stats command. No arguments yet, but successfully gets json from HyStats." />
+    <MESSAGE value="Created all of the gamemode sub commands. Not all of them are working, but we are gettiing back stats.&#10;Also added the typing indicator." />
+    <MESSAGE value="Murder Mystery, Speeduhc, duels, pit, and paintball are working." />
+    <MESSAGE value="Skywars and Bedwars modes are working." />
+    <MESSAGE value="Fixed gamemode titles to only have first character capitalized, but to accept any case when requesting the stats." />
+    <MESSAGE value="Added alias commands to modes, added megawalls as a mode." />
+    <MESSAGE value="Bug fixes" />
+    <MESSAGE value="Added trim for the vps and localhost for faster connections." />
+    <MESSAGE value="Fixed my trim" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed my trim" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="266" key="GridCell.Tab.0.bottom" timestamp="1599949248012">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600190398598">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599949248012" />
-    <state width="1899" height="266" key="GridCell.Tab.0.center" timestamp="1599949248011">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600190398598" />
+    <state width="1899" height="186" key="GridCell.Tab.0.bottom" timestamp="1600188780252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599949248011" />
-    <state width="1899" height="266" key="GridCell.Tab.0.left" timestamp="1599949248011">
+    <state width="1899" height="186" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
+    <state width="1899" height="186" key="GridCell.Tab.0.center" timestamp="1600188780252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599949248011" />
-    <state width="1899" height="266" key="GridCell.Tab.0.right" timestamp="1599949248011">
+    <state width="1899" height="186" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
+    <state width="1899" height="186" key="GridCell.Tab.0.left" timestamp="1600188780252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599949248011" />
+    <state width="1899" height="186" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
+    <state width="1899" height="186" key="GridCell.Tab.0.right" timestamp="1600188780252">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="186" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1599772782325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599772782325" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1599778997536">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600119316104">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599778997536" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600119316104" />
   </component>
 </project>

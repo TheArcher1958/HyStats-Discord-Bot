@@ -38,13 +38,14 @@ function numberWithCommas(x) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setPresence({ activity: { name: 'your stats | >help', type: "WATCHING" }, status: 'online' });
 });
 const commandPrefix = ">"
 client.on('message', msg => {
 
     if (msg.content[0] == commandPrefix) {
         var messageArguments = msg.content.slice(commandPrefix.length).trim().split(" ");
-        if (messageArguments[0] === 'query' && messageArguments[1] != undefined) {
+        if (messageArguments[0].toLowerCase() === 'query' && messageArguments[1] != undefined) {
             msg.channel.startTyping();
             var options = {
                 host: 'api.mcsrvstat.us',
@@ -219,7 +220,7 @@ client.on('message', msg => {
                                 .setFooter(client.user.username, client.user.avatarURL());
                         } else if (gamePath === "general") {
                             console.log(currentStats);
-                            var currentStats = new GamemodeStats(objVals[4], objVals[5], objVals[0], objVals[2], objVals[6], objVals[1], objVals[3]);
+                            var currentStats = new GamemodeStats(objVals[5], objVals[4], objVals[0], objVals[2], objVals[6], objVals[1], objVals[3]);
                             //kd, wl, wins, kills, xp, losses, deaths
 
                             //wins, losses, kills, deaths, kd, wl, xp
@@ -316,6 +317,26 @@ client.on('message', msg => {
 
 
 
+        } else if(messageArguments[0].toLowerCase() === "help") {
+            const helpEmbed = new Discord.MessageEmbed()
+                .setColor('#3e8ef7')
+                .setTitle(`Command List`)
+                //.setDescription('')
+                .addFields(
+                    {
+                        name: '>[gamemode] [username]',
+                        value: 'Returns stats for that gamemode.\n\`(sw,bw,mm,blitz,duels,mw,pb,pit,su,uhc,general)\`\ne.g. \`>sw The_Archer\`\nLeaving your username blank will use your discord username.',
+                        inline: false
+                    },
+                    {
+                        name: '>query',
+                        value: `Returns info about the server if it is online.\ne.g. \`>query hypixel.net\``,
+                        inline: false
+                    },
+                )
+                .setTimestamp()
+                .setFooter(client.user.username, client.user.avatarURL());
+            msg.author.send(helpEmbed);
         }
     }
 
