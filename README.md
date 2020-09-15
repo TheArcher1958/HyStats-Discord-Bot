@@ -1,5 +1,5 @@
 Discord bot to display Hypixel stats from https://hystats.net.
-This bot unlike all others, displays a history of stats which allows you to see your progression though the game.
+This bot displays a history of stats which allows you to see your progression though the game.
 Displays daily, weekly, monthly, and overall stats.
 
 Prefix: >
