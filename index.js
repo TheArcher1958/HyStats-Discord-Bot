@@ -271,6 +271,28 @@ client.on('message', msg => {
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
+                        }  else if(gamePath === "uhc") {
+                            var currentStats = new GamemodeStats(objVals[0], objVals[1]);
+
+                            gamemodeEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(gamePath)} Stats`)
+                                .addFields(
+                                    {
+                                        name: "Wins",
+                                        value: `Daily: \`${currentStats._kd[0].daily.toFixed(2)}\`\nWeekly: \`${currentStats._kd[1].weekly.toFixed(2)}\`\nMonthly: \`${currentStats._kd[2].monthly.toFixed(2)}\`\nOverall: \`${currentStats._kd[3].overall.toFixed(2)}\``,
+                                        inline: true
+                                    },
+                                    {
+                                        name: 'K/D',
+                                        value: `Daily: \`${currentStats._wl[0].daily.toFixed(2)}\`\nWeekly: \`${currentStats._wl[1].weekly.toFixed(2)}\`\nMonthly: \`${currentStats._wl[2].monthly.toFixed(2)}\`\nOverall: \`${currentStats._wl[3].overall.toFixed(2)}\``,
+                                        inline: true
+                                    },
+                                )
+
+                                .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                                .setTimestamp()
+                                .setFooter(client.user.username, client.user.avatarURL());
                         }
 
 

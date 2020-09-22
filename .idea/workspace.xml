@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bf16228-80fc-44f8-8275-18cf2783cd1d" name="Default Changelist" comment="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped.">
+    <list default="true" id="9bf16228-80fc-44f8-8275-18cf2783cd1d" name="Default Changelist" comment="Changed the &gt;help command to send the message to the channel and not dm the user.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
@@ -52,16 +52,24 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.13.1" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.12.56" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/index2.js" />
     <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v12.13.1-win-x64/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="discord-application" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
-    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/index.js" working-dir="$PROJECT_DIR$">
+  <component name="RunManager" selected="Node.js.index2">
+    <configuration name="index2" type="NodeJSConfigurationType" path-to-js-file="index2.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.index2" />
+      <item itemvalue="Node.js.index.js" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.index.js" />
@@ -81,7 +89,10 @@
       <workItem from="1599772581153" duration="535000" />
       <workItem from="1599773420752" duration="3096000" />
       <workItem from="1599947734463" duration="25393000" />
-      <workItem from="1600188939165" duration="3391000" />
+      <workItem from="1600188939165" duration="4303000" />
+      <workItem from="1600473808492" duration="516000" />
+      <workItem from="1600810757976" duration="43000" />
+      <workItem from="1600810820696" duration="703000" />
     </task>
     <task id="LOCAL-00001" summary="Created the &gt;query command. Returns the server info from https://api.mcsrvstat.us.">
       <created>1599778944939</created>
@@ -160,7 +171,21 @@
       <option name="project" value="LOCAL" />
       <updated>1600193696813</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fixed bug where block quotes markdown trigger the bots commands to trigger. Quoting peoples messages causes this bug to occur.">
+      <created>1600194670071</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1600194670071</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Changed the &gt;help command to send the message to the channel and not dm the user.">
+      <created>1600194849657</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1600194849657</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,36 +215,42 @@
     <MESSAGE value="Added trim for the vps and localhost for faster connections." />
     <MESSAGE value="Fixed my trim" />
     <MESSAGE value="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added &gt;help command. Added a bot status, and fixed a bug with wl and kd to be swapped." />
+    <MESSAGE value="Fixed bug where block quotes markdown trigger the bots commands to trigger. Quoting peoples messages causes this bug to occur." />
+    <MESSAGE value="Changed the &gt;help command to send the message to the channel and not dm the user." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed the &gt;help command to send the message to the channel and not dm the user." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600190398598">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600811211223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600190398598" />
-    <state width="1899" height="186" key="GridCell.Tab.0.bottom" timestamp="1600188780252">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600811211223" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600811209438">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="186" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
-    <state width="1899" height="186" key="GridCell.Tab.0.center" timestamp="1600188780252">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600811209438" />
+    <state width="1899" height="186" key="GridCell.Tab.0.bottom" timestamp="1600811389385">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="186" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
-    <state width="1899" height="186" key="GridCell.Tab.0.left" timestamp="1600188780252">
+    <state width="1899" height="186" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600811389385" />
+    <state width="1899" height="186" key="GridCell.Tab.0.center" timestamp="1600811389384">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="186" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
-    <state width="1899" height="186" key="GridCell.Tab.0.right" timestamp="1600188780252">
+    <state width="1899" height="186" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600811389384" />
+    <state width="1899" height="186" key="GridCell.Tab.0.left" timestamp="1600811389384">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="186" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600188780252" />
+    <state width="1899" height="186" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600811389384" />
+    <state width="1899" height="186" key="GridCell.Tab.0.right" timestamp="1600811389384">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="186" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600811389384" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1599772782325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599772782325" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600193701431">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600194979948">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600193701431" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600194979948" />
   </component>
 </project>
