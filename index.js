@@ -122,7 +122,6 @@ client.on('message', msg => {
                 if (res.statusCode == 200) {
                     res.on('data', d => {
                         const statsObj = JSON.parse(d);
-						console.log(statsObj);
                         objVals = Object.values(statsObj.stats)
                         let gamemodeEmbed;
 
