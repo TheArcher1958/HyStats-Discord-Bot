@@ -280,7 +280,7 @@ client.on('message', msg => {
                                 .addFields(
                                     {
                                         name: "Wins",
-                                        value: `Daily: \`${currentStats._kd[0].daily.toFixed(2)}\`\nWeekly: \`${currentStats._kd[1].weekly.toFixed(2)}\`\nMonthly: \`${currentStats._kd[2].monthly.toFixed(2)}\`\nOverall: \`${currentStats._kd[3].overall.toFixed(2)}\``,
+                                        value: `Daily: \`${numberWithCommas(currentStats._kd[0].daily)}\`\nWeekly: \`${numberWithCommas(currentStats._kd[1].weekly)}\`\nMonthly: \`${numberWithCommas(currentStats._kd[2].monthly)}\`\nOverall: \`${numberWithCommas(currentStats._kd[3].overall)}\``,
                                         inline: true
                                     },
                                     {
@@ -302,7 +302,7 @@ client.on('message', msg => {
                                    .addFields(
                                     {
                                         name: "Wins",
-                                        value: `Daily: \`${currentStats._kd[0].daily.toFixed(2)}\`\nWeekly: \`${currentStats._kd[1].weekly.toFixed(2)}\`\nMonthly: \`${currentStats._kd[2].monthly.toFixed(2)}\`\nOverall: \`${currentStats._kd[3].overall.toFixed(2)}\``,
+                                        value: `Daily: \`${numberWithCommas(currentStats._kd[0].daily)}\`\nWeekly: \`${numberWithCommas(currentStats._kd[1].weekly)}\`\nMonthly: \`${numberWithCommas(currentStats._kd[2].monthly)}\`\nOverall: \`${numberWithCommas(currentStats._kd[3].overall)}\``,
                                         inline: true
                                     },
                                     {
