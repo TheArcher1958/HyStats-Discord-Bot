@@ -377,11 +377,25 @@ client.on('message', msg => {
                         value: `Returns info about the server if it is online.\ne.g. \`>query hypixel.net\``,
                         inline: false
                     },
+					{
+                        name: '>invite',
+                        value: `Returns the link to invite this bot to your Discord server.`,
+                        inline: false
+                    }
                 )
                 .setTimestamp()
                 .setFooter(client.user.username, client.user.avatarURL());
             msg.channel.send(helpEmbed);
-        }
+        } else if (messageArguments[0].toLowerCase() === "invite") {
+			const helpEmbed = new Discord.MessageEmbed()
+                .setColor('#3e8ef7')
+                .setTitle(`Click Here to Invite the Bot`)
+                .setURL('https://discord.com/api/oauth2/authorize?client_id='+client.user.id+'&permissions=2048&scope=bot')
+                .setDescription('Click the link above to invite this bot to your Discord server.')
+                .setTimestamp()
+                .setFooter(client.user.username, client.user.avatarURL());
+            msg.channel.send(helpEmbed);
+		}
     }
 
 
