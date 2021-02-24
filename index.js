@@ -3,8 +3,10 @@ var https = require('https');
 var http = require('http');
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general"]
-const aliases = ["sw", "bw","uhc","su","pit","pb","mm","mw","duels","blitz","general"]
+const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general"];
+const aliases = ["sw", "bw","uhc","su","pit","pb","mm","mw","duels","blitz","general"];
+const rootURL = "https://hystats.net/";
+const playerPath = "player/";
 
 
 fs.readFile('./API-Key.txt', 'utf8', function (err,data) {
@@ -140,6 +142,7 @@ client.on('message', msg => {
                                 )
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
 
                         } else if (["murdermystery", "speeduhc", "duels", "mm", "su"].includes(gamePath)) {
@@ -162,6 +165,7 @@ client.on('message', msg => {
                                 )
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
                         } else if (["skywars", "bedwars", "sw", "bw"].includes(gamePath)) {
                             var currentStats = new GamemodeStats(objVals[0], objVals[1], objVals[2], objVals[3]);
@@ -195,6 +199,7 @@ client.on('message', msg => {
 
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
                         } else if (["megawalls", "mw"].includes(gamePath)) {
                             var currentStats = new GamemodeStats(objVals[0], objVals[1]);
@@ -217,6 +222,7 @@ client.on('message', msg => {
 
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
                         } else if (gamePath === "general") {
                             console.log(currentStats);
@@ -270,6 +276,7 @@ client.on('message', msg => {
 
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
                         }  else if(gamePath === "uhc") {
                             var currentStats = new GamemodeStats(objVals[0], objVals[1]);
@@ -292,6 +299,7 @@ client.on('message', msg => {
 
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
                         } else if (["blitz"].includes(gamePath)) {
                             var currentStats = new GamemodeStats(objVals[1], objVals[0]);
@@ -313,6 +321,7 @@ client.on('message', msg => {
                                 )
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
 
                         } 
@@ -326,8 +335,8 @@ client.on('message', msg => {
                     const invalidPlayerEmbed = new Discord.MessageEmbed()
                         .setColor('#3e8ef7')
                         .setTitle(`Invalid Player`)
-                        .setDescription('Click to start tracking that player!')
-                        .setURL(`https://hystats.net/player/${playerName}`)
+                        .setDescription('Click the link above to start tracking that player!')
+                        .setURL(rootURL+playerPath+`${playerName}`)
                         .setTimestamp()
                         .setFooter(client.user.username, client.user.avatarURL());
                     msg.channel.send(invalidPlayerEmbed).then(() => msg.channel.stopTyping());
