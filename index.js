@@ -3,8 +3,8 @@ var https = require('https');
 var http = require('http');
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general"];
-const aliases = ["sw", "bw","uhc","su","pit","pb","mm","mw","duels","blitz","general"];
+const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general","ranksgifted"];
+const aliases = ["sw", "bw","uhc","su","pit","pb","mm","mw","duels","blitz","general","ranksgifted"];
 const rootURL = "https://hystats.net/";
 const playerPath = "player/";
 
@@ -324,7 +324,25 @@ client.on('message', msg => {
 								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
 
-                        } 
+                        }  else if (["ranksgifted"].includes(gamePath)) {
+                            var currentStats = new GamemodeStats(objVals[0]);
+
+                            gamemodeEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(playerName)} Ranks Gifted Stats`)
+                                   .addFields(
+                                    {
+                                        name: "Ranks Gifted",
+                                        value: `Daily: \`${numberWithCommas(currentStats._kd[0].daily)}\`\nWeekly: \`${numberWithCommas(currentStats._kd[1].weekly)}\`\nMonthly: \`${numberWithCommas(currentStats._kd[2].monthly)}\`\nOverall: \`${numberWithCommas(currentStats._kd[3].overall)}\``,
+                                        inline: true
+                                    }
+                                )
+                                .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                                .setTimestamp()
+								.setURL(rootURL+playerPath+playerName)
+                                .setFooter(client.user.username, client.user.avatarURL());
+
+                        }
 
 
                         msg.channel.send(gamemodeEmbed).then(() => msg.channel.stopTyping());
@@ -378,7 +396,7 @@ client.on('message', msg => {
                 .addFields(
                     {
                         name: '>[gamemode] [username]',
-                        value: 'Returns stats for that gamemode.\n\`(sw,bw,mm,blitz,duels,mw,pb,pit,su,uhc,general)\`\ne.g. \`>sw The_Archer\`\nLeaving your username blank will use your discord username.',
+                        value: 'Returns stats for that gamemode.\n\`(sw,bw,mm,blitz,duels,mw,pb,pit,su,uhc,ranksgifted,general)\`\ne.g. \`>sw The_Archer\`\nLeaving your username blank will use your discord username.',
                         inline: false
                     },
                     {
