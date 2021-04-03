@@ -429,7 +429,7 @@ client.on('message', msg => {
                 } else if (res.statusCode == 404) {
                     const invalidPlayerEmbed = new Discord.MessageEmbed()
                         .setColor('#3e8ef7')
-                        .setTitle(`Invalid Player`)
+                        .setTitle(`Register New Player`)
                         .setDescription('Click the link above to start tracking that player!')
                         .setURL(rootURL+playerPath+`${playerName}`)
                         .setTimestamp()
