@@ -51,7 +51,7 @@ function numberWithCommas(x) {
 function parseSkyBlockSkillNumber(expArray) {
 	for (let obj of expArray) {
 		for (key of Object.keys(obj)) {
-			obj[key] = obj[key] < 1 ? 0 : numberWithCommas(obj[key]);
+			obj[key] = obj[key] < 1 ? 0 : numberWithCommas(Math.floor(obj[key]));
 		}
 	}
 	return expArray;
