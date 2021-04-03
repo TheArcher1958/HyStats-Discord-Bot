@@ -3,8 +3,8 @@ var https = require('https');
 var http = require('http');
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","general","ranksgifted"];
-const aliases = ["sw", "bw","uhc","su","pit","pb","mm","mw","duels","blitz","general","ranksgifted"];
+const statGamemodes = ["skywars","bedwars","uhc","speeduhc","pit","paintball","murdermystery","megawalls","duels","blitz","skyblock","general","ranksgifted"];
+const aliases = ["sw", "bw","uhc","su","pit","pb","mm","mw","duels","blitz","sb","general","ranksgifted"];
 const rootURL = "https://hystats.net/";
 const playerPath = "player/";
 
@@ -28,6 +28,17 @@ var GamemodeStats = function (kd, wl, wins, kills, xp, losses, deaths) {
     this._deaths = deaths;
 };
 
+var SkyBlockStats = function (farmingxp, miningxp, combatxp, foragingxp, fishingxp, enchantingxp, alchemyxp, runecraftingxp) {
+    this._farmingxp = parseSkyBlockSkillNumber(farmingxp);
+    this._miningxp = parseSkyBlockSkillNumber(miningxp);
+    this._combatxp = parseSkyBlockSkillNumber(combatxp);
+    this._foragingxp = parseSkyBlockSkillNumber(foragingxp);
+    this._fishingxp = parseSkyBlockSkillNumber(fishingxp);
+    this._enchantingxp = parseSkyBlockSkillNumber(enchantingxp);
+    this._alchemyxp = parseSkyBlockSkillNumber(alchemyxp);
+    this._runecraftingxp = parseSkyBlockSkillNumber(runecraftingxp);
+};
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -35,6 +46,15 @@ function capitalizeFirstLetter(string) {
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function parseSkyBlockSkillNumber(expArray) {
+	for (let obj of expArray) {
+		for (key of Object.keys(obj)) {
+			obj[key] = obj[key] < 1 ? 0 : numberWithCommas(obj[key]);
+		}
+	}
+	return expArray;
 }
 
 
@@ -278,7 +298,64 @@ client.on('message', msg => {
                                 .setTimestamp()
 								.setURL(rootURL+playerPath+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
-                        }  else if(gamePath === "uhc") {
+                        } else if (["skyblock", "sb"].includes(gamePath)) {
+                            var currentStats = new SkyBlockStats(objVals[0], objVals[1], objVals[2], objVals[3], objVals[4], objVals[5], objVals[6], objVals[7]);
+							console.log(currentStats._farmingxp[0].weekly);
+                            gamemodeEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(gamePath)} Stats`)
+								.setDescription(`*Only highest profile counts.*`)
+                                .addFields(
+                                    {
+                                        name: "Farming EXP",
+                                        value: `Daily: \`${currentStats._farmingxp[0].daily}\`\nWeekly: \`${currentStats._farmingxp[1].weekly}\`\nMonthly: \`${currentStats._farmingxp[2].monthly}\`\nOverall: \`${currentStats._farmingxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                    {
+                                        name: 'Mining EXP',
+                                        value: `Daily: \`${currentStats._miningxp[0].daily}\`\nWeekly: \`${currentStats._miningxp[1].weekly}\`\nMonthly: \`${currentStats._miningxp[2].monthly}\`\nOverall: \`${currentStats._miningxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                    {name: '\u200B', value: '\u200B'},
+                                    {
+                                        name: 'Combat EXP',
+                                        value: `Daily: \`${currentStats._combatxp[0].daily}\`\nWeekly: \`${currentStats._combatxp[1].weekly}\`\nMonthly: \`${currentStats._combatxp[2].monthly}\`\nOverall: \`${currentStats._combatxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                    {
+                                        name: 'Foraging EXP',
+                                        value: `Daily: \`${currentStats._foragingxp[0].daily}\`\nWeekly: \`${currentStats._foragingxp[1].weekly}\`\nMonthly: \`${currentStats._foragingxp[2].monthly}\`\nOverall: \`${currentStats._foragingxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                    {name: '\u200B', value: '\u200B'},
+                                    {
+                                        name: 'Fishing EXP',
+                                        value: `Daily: \`${currentStats._fishingxp[0].daily}\`\nWeekly: \`${currentStats._fishingxp[1].weekly}\`\nMonthly: \`${currentStats._fishingxp[2].monthly}\`\nOverall: \`${currentStats._fishingxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                    {
+                                        name: 'Enchanting EXP',
+                                        value: `Daily: \`${currentStats._enchantingxp[0].daily}\`\nWeekly: \`${currentStats._enchantingxp[1].weekly}\`\nMonthly: \`${currentStats._enchantingxp[2].monthly}\`\nOverall: \`${currentStats._enchantingxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                    {name: '\u200B', value: '\u200B'},
+                                    {
+                                        name: 'Alchemy EXP',
+                                        value: `Daily: \`${currentStats._alchemyxp[0].daily}\`\nWeekly: \`${currentStats._alchemyxp[1].weekly}\`\nMonthly: \`${currentStats._alchemyxp[2].monthly}\`\nOverall: \`${currentStats._alchemyxp[3].overall}\``,
+                                        inline: true
+                                    },
+									{
+                                        name: 'Runecrafting EXP',
+                                        value: `Daily: \`${currentStats._runecraftingxp[0].daily}\`\nWeekly: \`${currentStats._runecraftingxp[1].weekly}\`\nMonthly: \`${currentStats._runecraftingxp[2].monthly}\`\nOverall: \`${currentStats._runecraftingxp[3].overall}\``,
+                                        inline: true
+                                    },
+                                )
+
+                                .setThumbnail(`https://minotar.net/helm/${playerName}`)
+                                .setTimestamp()
+								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
+                                .setFooter(client.user.username, client.user.avatarURL());
+                        } else if(gamePath === "uhc") {
                             var currentStats = new GamemodeStats(objVals[0], objVals[1]);
 
                             gamemodeEmbed = new Discord.MessageEmbed()
@@ -396,7 +473,7 @@ client.on('message', msg => {
                 .addFields(
                     {
                         name: '>[gamemode] [username]',
-                        value: 'Returns stats for that gamemode.\n\`(sw,bw,mm,blitz,duels,mw,pb,pit,su,uhc,ranksgifted,general)\`\ne.g. \`>sw The_Archer\`\nLeaving your username blank will use your discord username.',
+                        value: 'Returns stats for that gamemode.\n\`(sw,bw,sb,mm,blitz,duels,mw,pb,pit,su,uhc,ranksgifted,general)\`\ne.g. \`>sw The_Archer\`\nLeaving your username blank will use your discord username.',
                         inline: false
                     },
                     {
