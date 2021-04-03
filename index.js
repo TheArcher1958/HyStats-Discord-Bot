@@ -245,7 +245,6 @@ client.on('message', msg => {
 								.setURL(rootURL+playerPath+gamePath+`/`+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
                         } else if (gamePath === "general") {
-                            console.log(currentStats);
                             var currentStats = new GamemodeStats(objVals[5], objVals[4], objVals[0], objVals[2], objVals[6], objVals[1], objVals[3]);
                             //kd, wl, wins, kills, xp, losses, deaths
 
