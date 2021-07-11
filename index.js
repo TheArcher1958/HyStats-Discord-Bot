@@ -120,7 +120,88 @@ client.on('message', msg => {
 
 
 
-        } else if (statGamemodes.includes(messageArguments[0].toLowerCase()) || aliases.includes(messageArguments[0].toLowerCase())) {
+        } else if (messageArguments[0].toLowerCase() === 'lb') {
+			if (messageArguments[1] == undefined || messageArguments[2] == undefined || messageArguments[3] == undefined) {
+				const invalidLeaderboardEmbed = new Discord.MessageEmbed()
+                    .setColor('#3e8ef7')
+                    .setTitle(`Invalid Usage`)
+                    .setDescription('Use >help to find out how to use the leaderboard command. Example: `>lb overall sw kd`')
+                    .setTimestamp()
+                    .setFooter(client.user.username, client.user.avatarURL());
+                 msg.channel.send(invalidLeaderboardEmbed).then(() => msg.channel.stopTyping());
+				 return;
+			}
+			let timeframeChosen = messageArguments[1];
+			let gamemodeChosen = messageArguments[2];
+			let statChosen = messageArguments[3];
+			let apipath = "/leaderboard/"+timeframeChosen+"_"+gamemodeChosen+"_"+statChosen;
+			if(messageArguments[4] != undefined) {
+				var gamesubmodeChosen = messageArguments[4];
+				apipath += "_"+gamesubmodeChosen;
+				gamesubmodeChosen = " "+capitalizeFirstLetter(gamesubmodeChosen);
+			} else {
+				var gamesubmodeChosen = "";
+			}
+			msg.channel.startTyping();
+			const options = {
+                hostname: "localhost",
+                path: apipath,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'API-Key': API_KEY
+                }
+            }
+            const req = http.request(options, res => {
+                if (res.statusCode == 200) {
+                    res.on('data', d => {
+                        const statsObj = JSON.parse(d).stats;
+                        let leaderboardEmbed;
+						leaderboardEmbed = new Discord.MessageEmbed()
+                                .setColor('#3e8ef7')
+                                .setTitle(`${capitalizeFirstLetter(timeframeChosen)} ${gamemodeChosen.toUpperCase()} ${statChosen.toUpperCase()}${gamesubmodeChosen} Leaderboard`)
+                                .setTimestamp()
+                                .setFooter(client.user.username, client.user.avatarURL());
+						for (let i = 0; i < 10; i++) {
+							leaderboardEmbed.addFields({
+                                name: (i+1)+". "+statsObj[i].rawusername,
+                                value: `${statChosen.toUpperCase()}: \`${statsObj[i].value}\``,
+                                inline: false
+                            });
+						}
+						leaderboardEmbed.addFields({
+								name: "\u200b",
+                                value: `You can find more entries and leaderboards on the [HyStats website](https://hystats.net/leaderboards).`,
+                                inline: false
+                        });
+						msg.channel.send(leaderboardEmbed).then(() => msg.channel.stopTyping());
+					});
+				} else {
+					const invalidLeaderboardEmbed = new Discord.MessageEmbed()
+                        .setColor('#3e8ef7')
+                        .setTitle(`Invalid Leaderboard`)
+                        .setDescription('Leaderboard cannot be found. Use >help to find valid leaderboard names. Example: `>lb overall sw kd`')
+                        .setTimestamp()
+                        .setFooter(client.user.username, client.user.avatarURL());
+                    msg.channel.send(invalidLeaderboardEmbed).then(() => msg.channel.stopTyping());
+				}
+			});
+			req.on('error', error => {
+                const errorEmbed = new Discord.MessageEmbed()
+                    .setColor('#3e8ef7')
+                    .setTitle(`Error proccessing command.`)
+                    .setDescription('Please try again later.')
+                    .setTimestamp()
+                    .setFooter(client.user.username, client.user.avatarURL());
+                msg.channel.send(errorEmbed).then(() => msg.channel.stopTyping());
+                client.users.fetch('237025024920256522').then((user) => {
+                    user.send(`Hystats could not connect!\n${error}`);
+                });
+                console.error(error)
+            })
+
+            req.end()
+		} else if (statGamemodes.includes(messageArguments[0].toLowerCase()) || aliases.includes(messageArguments[0].toLowerCase())) {
             msg.channel.startTyping();
             let playerName = msg.author.username;
             if (messageArguments[1] != undefined) {
@@ -415,7 +496,6 @@ client.on('message', msg => {
                                 )
                                 .setThumbnail(`https://minotar.net/helm/${playerName}`)
                                 .setTimestamp()
-								.setURL(rootURL+playerPath+playerName)
                                 .setFooter(client.user.username, client.user.avatarURL());
 
                         }
@@ -473,6 +553,11 @@ client.on('message', msg => {
                     {
                         name: '>[gamemode] [username]',
                         value: 'Returns stats for that gamemode.\n\`(sw,bw,sb,mm,blitz,duels,mw,pb,pit,su,uhc,ranksgifted,general)\`\ne.g. \`>sw The_Archer\`\nLeaving your username blank will use your discord username.',
+                        inline: false
+                    },
+					{
+                        name: '>lb [timeframe] [gamemode] [stat] {subgamemodetype}',
+                        value: 'Returns leaderboards for that gamemode.\nValid values for \`timeframe\` are \`(overall, daily, weekly, monthly)\`\nValid values for \`gamemode\` are \`(sw, bw, sb, duels, uhc, blitz, speed, murder, pit, mw, pb)\`\nValid values for \`stat\` are \`(kills, wins, kd, wl, fkd, fkills, ...)\`\nValid values for the optional field \`subgamemodetype\` are \`(solo_normal, 4v4v4v4, solo, doubles, exp_farming, ...)\`\ne.g. \`>lb overall sw kd\`\ne.g. \`>lb daily bw fkills doubles\`\ne.g. \`>lb monthly sb exp_farming\`',
                         inline: false
                     },
                     {
