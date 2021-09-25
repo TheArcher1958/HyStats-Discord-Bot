@@ -166,7 +166,7 @@ client.on('message', msg => {
                                 .setTitle(`${capitalizeFirstLetter(timeframeChosen)} ${gamemodeChosen.toUpperCase()} ${statChosen.toUpperCase()}${gamesubmodeChosen} Leaderboard`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
-						for (let i = 0; i < 10; i++) {
+						for (let i = 0; i < 20; i++) {
 							leaderboardEmbed.addFields({
                                 name: (i+1)+". "+statsObj[i].rawusername,
                                 value: `${statChosen.toUpperCase()}: \`${statsObj[i].value}\``,
