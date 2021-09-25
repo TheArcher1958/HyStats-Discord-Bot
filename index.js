@@ -153,8 +153,12 @@ client.on('message', msg => {
                 }
             }
             const req = http.request(options, res => {
+				var d = '';
                 if (res.statusCode == 200) {
-                    res.on('data', d => {
+					res.on('data', chunk => {
+						d += chunk;
+					});
+                    res.on('end', function() {
                         const statsObj = JSON.parse(d).stats;
                         let leaderboardEmbed;
 						leaderboardEmbed = new Discord.MessageEmbed()
@@ -222,8 +226,12 @@ client.on('message', msg => {
                 }
             }
             const req = http.request(options, res => {
+				var d = '';
                 if (res.statusCode == 200) {
-                    res.on('data', d => {
+					res.on('data', chunk => {
+						d += chunk;
+					});
+                    res.on('end', d => {
                         const statsObj = JSON.parse(d);
                         objVals = Object.values(statsObj.stats)
                         let gamemodeEmbed;
