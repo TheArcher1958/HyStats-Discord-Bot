@@ -166,7 +166,16 @@ client.on('message', msg => {
                                 .setTitle(`${capitalizeFirstLetter(timeframeChosen)} ${gamemodeChosen.toUpperCase()} ${statChosen.toUpperCase()}${gamesubmodeChosen} Leaderboard`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
+						console.log(statsObj.length);
+						if(statsObj == null || statsObj.length == 0) {
+							leaderboardEmbed.addFields({
+								name: "\u200b",
+                                value: `No entries for this leaderboard could be found.`,
+                                inline: false
+							});
+						}
 						for (let i = 0; i < 20; i++) {
+							if(statsObj[i] == null) continue;
 							leaderboardEmbed.addFields({
                                 name: (i+1)+". "+statsObj[i].rawusername,
                                 value: `${statChosen.toUpperCase()}: \`${statsObj[i].value}\``,
