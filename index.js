@@ -135,12 +135,13 @@ client.on('message', msg => {
 			let gamemodeChosen = messageArguments[2];
 			let statChosen = messageArguments[3];
 			let apipath = "/leaderboard/"+timeframeChosen+"_"+gamemodeChosen+"_"+statChosen;
-			if(messageArguments[4] != undefined) {
-				var gamesubmodeChosen = messageArguments[4];
-				apipath += "_"+gamesubmodeChosen;
-				gamesubmodeChosen = " "+capitalizeFirstLetter(gamesubmodeChosen);
-			} else {
-				var gamesubmodeChosen = "";
+			// Allow an arbitrary amount of further arguments  to specify the sub gamemodes chosen
+			let i = 4;
+			var gamesubmodeChosen = "";
+			while(messageArguments[i] != undefined) {
+				apipath += "_"+messageArguments[i];
+				gamesubmodeChosen = gamesubmodeChosen+" "+messageArguments[i].toUpperCase();
+				i++;
 			}
 			msg.channel.startTyping();
 			const options = {
@@ -166,7 +167,15 @@ client.on('message', msg => {
                                 .setTitle(`${capitalizeFirstLetter(timeframeChosen)} ${gamemodeChosen.toUpperCase()} ${statChosen.toUpperCase()}${gamesubmodeChosen} Leaderboard`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
+						if(statsObj == null || statsObj.length == 0) {
+							leaderboardEmbed.addFields({
+								name: "\u200b",
+                                value: `No entries for this leaderboard could be found.`,
+                                inline: false
+							});
+						}
 						for (let i = 0; i < 20; i++) {
+							if(statsObj[i] == null) continue;
 							leaderboardEmbed.addFields({
                                 name: (i+1)+". "+statsObj[i].rawusername,
                                 value: `${statChosen.toUpperCase()}: \`${statsObj[i].value}\``,
