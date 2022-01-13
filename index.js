@@ -135,12 +135,13 @@ client.on('message', msg => {
 			let gamemodeChosen = messageArguments[2];
 			let statChosen = messageArguments[3];
 			let apipath = "/leaderboard/"+timeframeChosen+"_"+gamemodeChosen+"_"+statChosen;
-			if(messageArguments[4] != undefined) {
-				var gamesubmodeChosen = messageArguments[4];
-				apipath += "_"+gamesubmodeChosen;
-				gamesubmodeChosen = " "+capitalizeFirstLetter(gamesubmodeChosen);
-			} else {
-				var gamesubmodeChosen = "";
+			// Allow an arbitrary amount of further arguments  to specify the sub gamemodes chosen
+			let i = 4;
+			var gamesubmodeChosen = "";
+			while(messageArguments[i] != undefined) {
+				apipath += "_"+messageArguments[i];
+				gamesubmodeChosen = gamesubmodeChosen+" "+messageArguments[i].toUpperCase();
+				i++;
 			}
 			msg.channel.startTyping();
 			const options = {
