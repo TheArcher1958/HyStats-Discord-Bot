@@ -166,7 +166,6 @@ client.on('message', msg => {
                                 .setTitle(`${capitalizeFirstLetter(timeframeChosen)} ${gamemodeChosen.toUpperCase()} ${statChosen.toUpperCase()}${gamesubmodeChosen} Leaderboard`)
                                 .setTimestamp()
                                 .setFooter(client.user.username, client.user.avatarURL());
-						console.log(statsObj.length);
 						if(statsObj == null || statsObj.length == 0) {
 							leaderboardEmbed.addFields({
 								name: "\u200b",
