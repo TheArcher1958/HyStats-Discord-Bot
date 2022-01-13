@@ -231,7 +231,7 @@ client.on('message', msg => {
 					res.on('data', chunk => {
 						d += chunk;
 					});
-                    res.on('end', d => {
+                    res.on('end', function() {
                         const statsObj = JSON.parse(d);
                         objVals = Object.values(statsObj.stats)
                         let gamemodeEmbed;
