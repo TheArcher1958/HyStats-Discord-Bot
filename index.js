@@ -51,7 +51,7 @@ module.exports.getGeneralStatsWithFourCategories = function(gamePath, playerName
             }
         }
         const req = http.request(options, res => {
-            var d = '';
+            let d = '';
             if (res.statusCode == 200) {
                 // Player data found
                 res.on('data', chunk => {
@@ -60,7 +60,7 @@ module.exports.getGeneralStatsWithFourCategories = function(gamePath, playerName
                 res.on('end', function() {
                     const statsObj = JSON.parse(d);
                     objVals = Object.values(statsObj.stats)
-                    var currentStats = new GamemodeStats(objVals[0], objVals[1], objVals[2], objVals[3]);
+                    let currentStats = new GamemodeStats(objVals[0], objVals[1], objVals[2], objVals[3]);
                     let gamemodeEmbed = new Discord.MessageEmbed()
                         .setColor('#3e8ef7')
                         .setTitle(`${capitalizeFirstLetter(playerName)} ${capitalizeFirstLetter(gamePath)}${niceDetailedModeTitle} Stats`)
@@ -145,7 +145,7 @@ module.exports.getLBEmbed = function(params) {
             }
         }
         const req = http.request(options, res => {
-            var d = '';
+            let d = '';
             if (res.statusCode == 200) {
                 // Leaderboard data found
                 res.on('data', chunk => {
